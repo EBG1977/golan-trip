@@ -180,13 +180,78 @@
     .schematic-badge,.schematic-compass{font-size:11px;padding:6px 9px}
   }
   </style>
+  <style>
+/* Larger map viewer for the locally hosted Golan basemap. No external map API. */
+body.map-dialog-open { overflow: hidden; }
+.map-open-btn { background:#196047; color:white; border-color:#196047; min-height:44px; white-space:nowrap; }
+.map-open-btn:focus-visible { outline-offset:3px; }
+#routeMap { cursor: zoom-in; }
+.map-modal[hidden] { display:none !important; }
+.map-modal {
+  position:fixed; inset:0; z-index:3000;
+  background:#f4f7f1; color:#183b2c; padding: max(8px,env(safe-area-inset-top)) 12px max(8px,env(safe-area-inset-bottom));
+  display:flex; flex-direction:column; gap:9px; overscroll-behavior:contain;
+}
+.map-modal-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; flex:0 0 auto; }
+.map-modal-toolbar h2 { margin:0; font-size:clamp(18px,3vw,23px); line-height:1.3; }
+.map-modal-toolbar p { margin:0; color:#597267; font-size:13px; }
+.map-modal-close { min-height:46px; min-width:84px; border-radius:12px; border:1px solid #b9d2bf; background:white; font-weight:800; color:#174b35; }
+.map-modal-controls { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px; flex:0 0 auto; }
+.map-modal-tools { display:flex; gap:7px; }
+.map-modal-tools button { min-width:47px; min-height:47px; border:1px solid #bcd7c2; border-radius:13px; background:#fff; color:#205741; font-size:21px; font-weight:800; }
+.map-modal-tools .zoom-reset { font-size:14px; padding:0 11px; white-space:nowrap; }
+.map-modal-help { font-size:13px; color:#536d5f; font-weight:600; }
+.map-modal-canvas { position:relative; flex:1 1 auto; min-height:180px; overflow:hidden; border:1px solid #bfd2bc; border-radius:17px; background:#dce9dd; box-shadow:0 3px 18px rgba(25,61,43,.08); }
+.map-modal-canvas svg { display:block; width:100%; height:100%; touch-action:none; user-select:none; -webkit-user-select:none; cursor:grab; }
+.map-modal-canvas svg.is-panning { cursor:grabbing; }
+.map-modal-canvas .svg-marker { cursor:pointer; }
+.map-modal-info { flex:0 0 auto; min-height:68px; max-height:24vh; overflow:auto; background:#fff; border:1px solid #d5e7d7; border-radius:13px; padding:12px 15px; font-size:14px; }
+.map-modal-info b { display:block; margin-bottom:3px; font-size:16px; color:#184b35; }
+.map-modal-info .callout-row { display:flex; gap:7px; flex-wrap:wrap; margin-top:8px; }
+.map-modal-info .callout-pill { background:#e7f4e9; padding:4px 8px; border-radius:9px; color:#1f6a49; font-size:12px; }
+.map-modal-credit { color:#6a8072; font-size:11px; text-align:center; flex:0 0 auto; }
+.map-modal .marker-core { stroke-width:5; }
+@media(max-width:790px) {
+  .route-btn .route-name { font-size:17px; }
+  .route-btn .route-sub { font-size:13px; }
+  .mapbar b { font-size:19px; }
+  .mapbar small { font-size:13px; }
+  .step-content h3 { font-size:16px; }
+  .step-content p { font-size:14px; }
+  .mini-links button,.mini-links a { min-height:40px; display:inline-flex; align-items:center; }
+  .map-modal { padding: max(9px,env(safe-area-inset-top)) 8px max(8px,env(safe-area-inset-bottom)); gap:8px; }
+  .map-modal-help { font-size:12px; }
+  .map-modal-toolbar h2 { font-size:18px; }
+}
+@media (max-width:490px) {
+  .mapbar { flex-wrap:wrap; }
+  .mapbar > div:last-child { width:100%; }
+  .map-open-btn { flex:1; }
+  .map-modal-help { display:none; }
+  .map-modal-info { font-size:14px; }
+}
+@media(max-height:490px) and (orientation:landscape) {
+  .map-modal { gap:5px; padding:5px max(9px,env(safe-area-inset-right)) 5px max(9px,env(safe-area-inset-left)); }
+  .map-modal-info { max-height:70px; min-height:48px; padding:6px 11px; }
+  .map-modal-info b { font-size:13px; }
+  .map-modal-help,.map-modal-credit { display:none; }
+  .map-modal-tools button { min-height:38px; min-width:40px; }
+  .map-modal-close { min-height:38px; }
+}
+
+.map-stop-list {display:flex;gap:7px;flex:0 0 auto;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;padding:2px 0 6px;scroll-snap-type:x proximity;}
+.map-stop-list button {scroll-snap-align:start;flex:0 0 auto;min-height:44px;padding:8px 12px;border:1px solid #b8d0bf;border-radius:12px;background:#fff;color:#285844;font-size:14px;font-weight:800;white-space:nowrap;}
+.map-stop-list button[aria-pressed="true"] {background:#1a6249;color:#fff;border-color:#1a6249;}
+@media (max-width:450px){.map-stop-list button{font-size:13px;}}
+
+</style>
 </head>
 <body>
 <header class="hero">
   <div class="container">
     <div class="eyebrow"><span>🌿 מסלולי המשפחות</span><span>שבת 14 בנובמבר 2026</span></div>
     <h1>שבת אחת.<br /><em>שלוש הרפתקאות.</em></h1>
-    <p>יוצאים מקיבוץ אורטל ב־11:00. בוחרים יחד מסלול קצר וקל, פותחים את המפה ויוצאים לדרך.</p>
+    <p>יוצאים מאורטל ב־11:00 לטבע, נופים וארוחה טובה. בוחרים מסלול רגוע, מגדילים את המפה ומתכננים בנחת.</p>
     <div class="hero-stats"><div class="stat">👨‍👩‍👧‍👦 11 מטיילים</div><div class="stat">🥾 הליכות קצרות</div><div class="stat">☀️ כ־20–22° בשעות היום</div><div class="stat">🦆 אגמון החולה — ביום שישי</div></div>
   </div>
 </header>
@@ -197,7 +262,7 @@
 </section>
 <section class="layout" aria-label="מפה ותחנות">
   <div class="paper mapbox">
-    <div class="mapbar"><div><b id="mapTitle">מפת המסלול</b><small>לחצו על הסמנים כדי לראות פרטים על כל תחנה</small></div><div style="display:flex;gap:7px;flex-wrap:wrap"><button class="action" id="resetSelection" type="button">◌ הצג הכול</button><button class="action" id="focusFirstStop" type="button">◎ תחנה ראשונה</button></div></div>
+    <div class="mapbar"><div><b id="mapTitle">מפת המסלול</b><small>לחצו על המפה להגדלה או על הסמנים לפרטי התחנה</small></div><div style="display:flex;gap:7px;flex-wrap:wrap"><button class="action map-open-btn" id="openMapModal" type="button">⛶ הגדל מפה</button><button class="action" id="resetSelection" type="button">◌ הצג הכול</button><button class="action" id="focusFirstStop" type="button">◎ תחנה ראשונה</button></div></div>
     <div class="map-legend"><span class="legend-chip"><span class="legend-route"></span> סדר התחנות (לא כבישים)</span><span class="legend-chip"><span class="legend-start"></span> יציאה מאורטל</span><span class="legend-chip"><span class="legend-dot"></span> תחנה לחיצה</span></div>
     <div class="schematic-wrap">
       <div class="schematic-stage">
@@ -221,6 +286,25 @@
 </main>
 <button class="action primary share-floating" id="floatShare">שתפו בקבוצה ↗</button>
 <footer class="footer">נבנה במיוחד לשבת המשפחתית ברמת הגולן · אתר שיתופי פשוט לפתיחה מהטלפון</footer>
+<div id="mapModal" class="map-modal" hidden role="dialog" aria-modal="true" aria-labelledby="mapModalTitle">
+  <div class="map-modal-toolbar">
+    <div><h2 id="mapModalTitle">מפת המסלול</h2><p>מפה סטטית של הגולן, עם תחנות לחיצות</p></div>
+    <button id="mapModalClose" class="map-modal-close" type="button">✕ סגור</button>
+  </div>
+  <div class="map-modal-controls">
+    <div class="map-modal-tools">
+      <button type="button" id="mapZoomIn" aria-label="הגדל">+</button>
+      <button type="button" id="mapZoomOut" aria-label="הקטן">−</button>
+      <button type="button" id="mapZoomReset" class="zoom-reset">הצג הכול</button>
+    </div>
+    <span class="map-modal-help">הזזה באצבע · צביטה להגדלה · תחנות לחיצות</span>
+    <span id="mapZoomLevel" class="map-modal-help" aria-live="polite">100%</span>
+  </div>
+  <div class="map-stop-list" id="mapModalStops" aria-label="בחרו תחנה במפה"></div>
+  <div class="map-modal-canvas"><svg id="mapModalSvg" viewBox="0 0 1000 640" role="img" aria-label="מפת המסלול המוגדלת"></svg></div>
+  <div id="mapModalInfo" class="map-modal-info" aria-live="polite">לחצו על נקודה כדי לקרוא פרטים</div>
+  <div class="map-modal-credit">מפת בסיס OpenStreetMap © תורמי OSM · Wikimedia Commons, CC BY-SA 2.0 · לא לניווט בכבישים</div>
+</div>
 <script>
 (() => {
   const origin='קיבוץ אורטל, רמת הגולן, ישראל';
@@ -419,6 +503,203 @@
   window.addEventListener('hashchange', () => { const k = location.hash.slice(1); if(routes[k]) setRoute(k, true); });
   setRoute(active, true);
 })();
+</script>
+<script>
+/* Independent interactive enlarged view of the existing local SVG map. */
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const normal = $('routeMap');
+  const enlarged = $('mapModalSvg');
+  const modal = $('mapModal');
+  if (!normal || !enlarged || !modal) return;
+  const W = 1000, H = 640, MIN_SCALE = 1, MAX_SCALE = 5;
+  let box = {x: 0, y: 0, w: W, h: H};
+  let lastFocus = null;
+  let isOpen = false;
+  let dragMoved = false;
+  let blockClick = false;
+  let pinch = null;
+  const touches = new Map();
+
+  function viewScale() { return W / box.w; }
+  function setBox(b) {
+    const w = Math.max(W / MAX_SCALE, Math.min(W / MIN_SCALE, b.w));
+    const h = w * H / W;
+    const x = Math.max(0, Math.min(W - w, b.x));
+    const y = Math.max(0, Math.min(H - h, b.y));
+    box = {x, y, w, h};
+    enlarged.setAttribute('viewBox', `${x.toFixed(2)} ${y.toFixed(2)} ${w.toFixed(2)} ${h.toFixed(2)}`);
+    $('mapZoomLevel').textContent = `${Math.round(viewScale() * 100)}%`;
+    $('mapZoomOut').disabled = viewScale() < 1.01;
+    $('mapZoomIn').disabled = viewScale() > MAX_SCALE - 0.01;
+  }
+  function resetView() { setBox({x:0,y:0,w:W,h:H}); }
+  function pointerWorld(clientX, clientY, oldBox = box) {
+    const rect = enlarged.getBoundingClientRect();
+    const scale = Math.min(rect.width / oldBox.w, rect.height / oldBox.h);
+    const ox = (rect.width - oldBox.w * scale) / 2;
+    const oy = (rect.height - oldBox.h * scale) / 2;
+    const u = (clientX - rect.left - ox) / scale;
+    const v = (clientY - rect.top - oy) / scale;
+    return {x:oldBox.x + u, y:oldBox.y + v};
+  }
+  function zoomAt(factor, cx, cy, original=box) {
+    const r = enlarged.getBoundingClientRect();
+    const world = pointerWorld(cx ?? r.left + r.width/2, cy ?? r.top + r.height/2, original);
+    const relX = (world.x-original.x)/original.w;
+    const relY = (world.y-original.y)/original.h;
+    const newW = Math.max(W/MAX_SCALE,Math.min(W,original.w/factor));
+    const newH = newW * H / W;
+    setBox({x:world.x-relX*newW,y:world.y-relY*newH,w:newW,h:newH});
+  }
+  function mirrorSelection(){
+    if(!isOpen) return;
+    const selected = normal.querySelector('.svg-marker.is-active')?.getAttribute('data-step-index');
+    enlarged.querySelectorAll('.svg-marker').forEach(node => node.classList.toggle('is-active', node.getAttribute('data-step-index')===selected));
+    $('mapModalInfo').innerHTML = $('mapCallout')?.innerHTML || '';
+    $('mapModalStops').querySelectorAll('button').forEach(btn => btn.setAttribute('aria-pressed', String(btn.dataset.stepIndex===selected)));
+  }
+  function renderStopButtons(){
+    const el=$('mapModalStops');
+    el.replaceChildren();
+    document.querySelectorAll('#details .step h3').forEach((heading,index)=>{
+      const b=document.createElement('button');
+      b.type='button';b.dataset.stepIndex=String(index);b.textContent=heading.textContent;
+      b.addEventListener('click',()=>selectMarker(index,true));
+      el.appendChild(b);
+    });
+  }
+  function mirrorMap(){
+    if(!isOpen) return;
+    enlarged.innerHTML = normal.innerHTML;
+    $('mapModalTitle').textContent = $('mapTitle')?.textContent || 'מפת המסלול';
+    renderStopButtons();
+    mirrorSelection();
+  }
+  function centerOnMarker(index){
+    const el=enlarged.querySelector(`.svg-marker[data-step-index="${index}"] .marker-core`);
+    if(!el)return;
+    const x=Number(el.getAttribute('cx')),y=Number(el.getAttribute('cy'));
+    const z=Math.max(1.8,viewScale());
+    const w=W/z,h=H/z;
+    setBox({x:x-w/2,y:y-h/2,w,h});
+  }
+  function selectMarker(index,center){
+    const original=normal.querySelector(`.svg-marker[data-step-index="${index}"]`);
+    if(original){original.dispatchEvent(new MouseEvent('click',{bubbles:true}));mirrorSelection();}
+    if(center)centerOnMarker(index);
+  }
+  function show(){
+    lastFocus = document.activeElement;
+    isOpen = true;
+    modal.hidden = false;
+    document.body.classList.add('map-dialog-open');
+    mirrorMap();
+    resetView();
+    $('mapModalClose').focus();
+  }
+  function hide(){
+    if(!isOpen) return;
+    isOpen = false;
+    modal.hidden = true;
+    document.body.classList.remove('map-dialog-open');
+    touches.clear(); pinch=null; dragMoved=false;
+    if(lastFocus && typeof lastFocus.focus==='function') lastFocus.focus();
+  }
+
+  $('openMapModal').addEventListener('click',show);
+  $('mapModalClose').addEventListener('click',hide);
+  $('mapZoomIn').addEventListener('click',()=>zoomAt(1.5));
+  $('mapZoomOut').addEventListener('click',()=>zoomAt(1/1.5));
+  $('mapZoomReset').addEventListener('click',resetView);
+  normal.addEventListener('click', e => {if(!e.target.closest('.svg-marker')) show();});
+  normal.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target===normal){e.preventDefault();show();}});
+  enlarged.addEventListener('wheel', e=>{e.preventDefault();zoomAt(e.deltaY<0?1.18:1/1.18,e.clientX,e.clientY);},{passive:false});
+  enlarged.addEventListener('dblclick',e=>{e.preventDefault();zoomAt(1.5,e.clientX,e.clientY);});
+  enlarged.addEventListener('click',e=>{
+    if(blockClick){ e.preventDefault(); e.stopPropagation(); return; }
+    const marker=e.target.closest('.svg-marker');
+    if(!marker) return;
+    const index=Number(marker.getAttribute('data-step-index'));
+    selectMarker(index,true);
+  });
+  enlarged.addEventListener('keydown',e=>{
+    if(e.target.closest('.svg-marker')&&(e.key==='Enter'||e.key===' ')){
+      e.preventDefault();e.target.closest('.svg-marker').dispatchEvent(new MouseEvent('click',{bubbles:true}));
+    }
+  });
+  function distance(a,b){return Math.hypot(a.x-b.x,a.y-b.y);}
+  enlarged.addEventListener('pointerdown',e=>{
+    if(e.button!==0&&e.pointerType==='mouse')return;
+    const isMarker=!!e.target.closest('.svg-marker');
+    touches.set(e.pointerId,{x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,isMarker});
+    // Capturing a pointer on the SVG would redirect marker clicks to the SVG root.
+    // Capture blank-map drags, but preserve direct click targeting on markers.
+    if(!isMarker){try{enlarged.setPointerCapture(e.pointerId);}catch(_){}}
+    dragMoved=false;
+    if(touches.size>=2){
+      const [a,b]=Array.from(touches.values());
+      pinch={startDistance:Math.max(1,distance(a,b)),initial:{...box}};
+    }
+  });
+  enlarged.addEventListener('pointermove',e=>{
+    if(!touches.has(e.pointerId))return;
+    const old=touches.get(e.pointerId);
+    const curr={x:e.clientX,y:e.clientY};
+    touches.set(e.pointerId,{...old,...curr});
+    if(touches.size>=2){
+      if(!pinch){const [a,b]=Array.from(touches.values());pinch={startDistance:Math.max(1,distance(a,b)),initial:{...box}};}
+      const [a,b]=Array.from(touches.values());
+      const middle={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
+      zoomAt(distance(a,b)/pinch.startDistance,middle.x,middle.y,pinch.initial);
+      dragMoved=true;
+      enlarged.classList.add('is-panning');
+    }else{
+      const dx=curr.x-old.x,dy=curr.y-old.y;
+      if(old.isMarker && Math.hypot(curr.x-old.startX,curr.y-old.startY)>7){
+        try{enlarged.setPointerCapture(e.pointerId);}catch(_){}
+      }
+      if(Math.hypot(dx,dy)>1){
+        const rect=enlarged.getBoundingClientRect();
+        const pxScale=Math.min(rect.width/box.w,rect.height/box.h);
+        setBox({x:box.x-dx/pxScale,y:box.y-dy/pxScale,w:box.w,h:box.h});
+        if(Math.hypot(dx,dy)>3)dragMoved=true;
+        enlarged.classList.add('is-panning');
+      }
+    }
+  });
+  function finishPointer(e){
+    if(!touches.has(e.pointerId))return;
+    touches.delete(e.pointerId);
+    if(touches.size<2) pinch=null;
+    if(!touches.size){
+      enlarged.classList.remove('is-panning');
+      if(dragMoved){blockClick=true;setTimeout(()=>blockClick=false,100);}
+    }
+  }
+  enlarged.addEventListener('pointerup',finishPointer);
+  enlarged.addEventListener('pointercancel',finishPointer);
+  document.addEventListener('keydown',e=>{
+    if(!isOpen)return;
+    if(e.key==='Escape'){e.preventDefault();hide();}
+    else if(e.key==='+'||e.key==='='){e.preventDefault();zoomAt(1.5);}
+    else if(e.key==='-'){e.preventDefault();zoomAt(1/1.5);}
+    else if(e.key==='0'){e.preventDefault();resetView();}
+  });
+  // Keep overlays in sync with route changes and marker selection.
+  const observer = new MutationObserver(mutations=>{
+    if(!isOpen)return;
+    if(mutations.some(m=>m.type==='childList')){
+      mirrorMap();
+      resetView();
+    }else mirrorSelection();
+  });
+  observer.observe(normal,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  const calloutObserver = new MutationObserver(mirrorSelection);
+  if($('mapCallout'))calloutObserver.observe($('mapCallout'),{subtree:true,childList:true});
+})();
+
 </script>
 </body>
 </html>
