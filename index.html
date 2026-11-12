@@ -134,12 +134,12 @@
   .svg-marker:focus-visible .marker-core{stroke:#d1883d;stroke-width:6}
   .marker-core{fill:#1e644b;stroke:#fff;stroke-width:4;transition:transform .18s, fill .18s, stroke-width .18s, filter .18s}
   .marker-start .marker-core{fill:#cf8f3c}
-  .marker-number{fill:white;font-size:16px;font-weight:900;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+  .marker-number{fill:white;font-size:20px;font-weight:900;text-anchor:middle;dominant-baseline:central;pointer-events:none}
   .marker-ring{fill:none;stroke:rgba(30,100,75,.16);stroke-width:10}
   .svg-marker.is-active .marker-core{fill:#0f5038;filter:drop-shadow(0 6px 16px rgba(23,53,39,.22))}
   .svg-marker.is-active .marker-ring{stroke:rgba(30,100,75,.28)}
-  .marker-label{font-size:23px;font-weight:900;fill:#ffffff;paint-order:stroke fill;stroke:#000000;stroke-width:3px;stroke-linejoin:round;stroke-opacity:1}
-  .marker-sub{font-size:18px;font-weight:900;fill:#ffffff;paint-order:stroke fill;stroke:#000000;stroke-width:2.6px;stroke-linejoin:round;stroke-opacity:1}
+  .svg-pin-leader{stroke:#245b43;stroke-width:2.3;stroke-dasharray:5 5;pointer-events:none}
+  .svg-pin-anchor{fill:#f7fbf6;stroke:#245b43;stroke-width:2;pointer-events:none}
   .mini-note{font-size:12px;font-weight:800;fill:#4f695d}
   .route-title-svg{font-size:25px;font-weight:900;fill:#244f3e}
   .route-sub-svg{font-size:14px;font-weight:700;fill:#5d776a}
@@ -262,7 +262,7 @@ body.map-dialog-open { overflow: hidden; }
 </section>
 <section class="layout" aria-label="מפה ותחנות">
   <div class="paper mapbox">
-    <div class="mapbar"><div><b id="mapTitle">מפת המסלול</b><small>לחצו על המפה להגדלה או על הסמנים לפרטי התחנה</small></div><div style="display:flex;gap:7px;flex-wrap:wrap"><button class="action map-open-btn" id="openMapModal" type="button">⛶ הגדל מפה</button><button class="action" id="resetSelection" type="button">◌ הצג הכול</button><button class="action" id="focusFirstStop" type="button">◎ תחנה ראשונה</button></div></div>
+    <div class="mapbar"><div><b id="mapTitle">מפת המסלול</b><small>לחצו על מספר תחנה כדי לראות את השם, השעה והפרטים</small></div><div style="display:flex;gap:7px;flex-wrap:wrap"><button class="action map-open-btn" id="openMapModal" type="button">⛶ הגדל מפה</button><button class="action" id="resetSelection" type="button">◌ הצג הכול</button><button class="action" id="focusFirstStop" type="button">◎ תחנה ראשונה</button></div></div>
     <div class="map-legend"><span class="legend-chip"><span class="legend-route"></span> סדר התחנות (לא כבישים)</span><span class="legend-chip"><span class="legend-start"></span> יציאה מאורטל</span><span class="legend-chip"><span class="legend-dot"></span> תחנה לחיצה</span></div>
     <div class="schematic-wrap">
       <div class="schematic-stage">
@@ -297,7 +297,7 @@ body.map-dialog-open { overflow: hidden; }
       <button type="button" id="mapZoomOut" aria-label="הקטן">−</button>
       <button type="button" id="mapZoomReset" class="zoom-reset">הצג הכול</button>
     </div>
-    <span class="map-modal-help">הזזה באצבע · צביטה להגדלה · תחנות לחיצות</span>
+    <span class="map-modal-help">הזזה באצבע · צביטה להגדלה · לחצו על מספר לתחנה</span>
     <span id="mapZoomLevel" class="map-modal-help" aria-live="polite">100%</span>
   </div>
   <div class="map-stop-list" id="mapModalStops" aria-label="בחרו תחנה במפה"></div>
@@ -414,10 +414,38 @@ body.map-dialog-open { overflow: hidden; }
     return points.map((p,i)=>`${i?'L':'M'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
   }
 
+  // Give nearby stops their own finger-friendly pins, without moving the actual
+  // map coordinates. A thin dashed connector denotes a small visual offset.
+  function separateClosePins(points){
+    const positioned=points.map(p=>({...p,pinX:p.x,pinY:p.y}));
+    const minGap=80;
+    for(let pass=0;pass<26;pass++){
+      for(let i=0;i<positioned.length;i++){
+        for(let j=i+1;j<positioned.length;j++){
+          const a=positioned[i],b=positioned[j];
+          let dx=b.pinX-a.pinX,dy=b.pinY-a.pinY;
+          let d=Math.hypot(dx,dy);
+          if(d>=minGap)continue;
+          if(d<.1){const angle=(i+1)*1.43+(j+1)*1.91;dx=Math.cos(angle);dy=Math.sin(angle);d=1;}
+          const push=(minGap-d)/2,ux=dx/d,uy=dy/d;
+          a.pinX-=ux*push;a.pinY-=uy*push;
+          b.pinX+=ux*push;b.pinY+=uy*push;
+        }
+      }
+      for(const p of positioned){
+        const dx=p.pinX-p.x,dy=p.pinY-p.y,d=Math.hypot(dx,dy);
+        if(d>95){p.pinX=p.x+95*dx/d;p.pinY=p.y+95*dy/d;}
+        p.pinX=Math.min(965,Math.max(35,p.pinX));
+        p.pinY=Math.min(605,Math.max(35,p.pinY));
+      }
+    }
+    return positioned;
+  }
+
   function renderMap(r){
     const projection=projectRoute(r);
-    const points=projection.points;
-    const path=routePath(points);
+    const points=separateClosePins(projection.points);
+    const path=routePath(projection.points);
     const img=projection.image;
     $('routeMap').innerHTML=`
       <rect width="1000" height="640" fill="#dfece0" />
@@ -426,17 +454,16 @@ body.map-dialog-open { overflow: hidden; }
       <path class="svg-route-shadow" d="${path}" />
       <path class="svg-route-line" d="${path}" />
       ${points.map((p,i)=>{
-        const label = p.name.length>23 ? p.name.slice(0,22)+'…' : p.name;
-        const anchor = p.x>640?'end':'start';
-        const tx=p.x+(anchor==='end'?-26:26);
-        const labelY=p.y+(i%2===0?-20:30);
-        return `<g class="svg-marker ${i===0?'marker-start':''}" data-step-index="${i}" tabindex="0" role="button" aria-label="${escapeHTML(p.name)} בשעה ${escapeHTML(p.time)}">
-          <circle class="marker-ring" cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="24"></circle>
-          <circle class="marker-core" cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="18"></circle>
-          <text class="marker-number" x="${p.x.toFixed(2)}" y="${(p.y+1).toFixed(2)}">${i+1}</text>
-          <text class="marker-label" x="${tx.toFixed(2)}" y="${labelY.toFixed(2)}" text-anchor="${anchor}">${escapeHTML(label)}</text>
-          <text class="marker-sub" x="${tx.toFixed(2)}" y="${(labelY+18).toFixed(2)}" text-anchor="${anchor}">${escapeHTML(p.time)}</text>
-        </g>`;
+        const dist=Math.hypot(p.pinX-p.x,p.pinY-p.y);
+        return `
+          ${dist>8?`<line class="svg-pin-leader" x1="${p.x.toFixed(2)}" y1="${p.y.toFixed(2)}" x2="${p.pinX.toFixed(2)}" y2="${p.pinY.toFixed(2)}" />
+            <circle class="svg-pin-anchor" cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="4" />`:''}
+          <g class="svg-marker ${i===0?'marker-start':''}" data-step-index="${i}" tabindex="0" role="button" aria-label="תחנה ${i+1}: ${escapeHTML(p.name)} בשעה ${escapeHTML(p.time)}">
+            <title>${escapeHTML(p.name)} · ${escapeHTML(p.time)}</title>
+            <circle class="marker-ring" cx="${p.pinX.toFixed(2)}" cy="${p.pinY.toFixed(2)}" r="25"></circle>
+            <circle class="marker-core" cx="${p.pinX.toFixed(2)}" cy="${p.pinY.toFixed(2)}" r="20"></circle>
+            <text class="marker-number" x="${p.pinX.toFixed(2)}" y="${(p.pinY+1).toFixed(2)}">${i+1}</text>
+          </g>`;
       }).join('')}
     `;
     document.querySelectorAll('.svg-marker').forEach(el=>{
