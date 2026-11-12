@@ -107,24 +107,22 @@
     if(!element || element.offsetWidth < 100 || element.offsetHeight < 100) return;
     const r = routes[key];
     const map = L.map(element,{scrollWheelZoom:false,zoomControl:true});
-    const tileSources = [
-      {url:'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', options:{subdomains:'abcd',maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'}},
-      {url:'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', options:{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}}
-    ];
-    let tiles, errors=0, providerIndex=0;
-    function addTiles(index){
-      if(tiles) map.removeLayer(tiles);
-      errors=0;
-      tiles=L.tileLayer(tileSources[index].url,tileSources[index].options).addTo(map);
-      tiles.on('tileerror',()=>{
-        if(++errors>=3){
-          if(providerIndex===0){ providerIndex=1; addTiles(providerIndex); }
-          else if(active===key) $('mapStatus').classList.add('show');
-        }
-      });
-      tiles.on('tileload',()=>{if(active===key) $('mapStatus').classList.remove('show');});
-    }
-    addTiles(0);
+    // OSM standard tiles do not require an API key. CARTO's unauthenticated
+    // tiles return a 200 image containing "API KEY REQUIRED", not a tileerror.
+    // Using OSM directly also avoids accidentally displaying that watermark.
+    const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>'
+    }).addTo(map);
+    let tileErrors = 0;
+    tiles.on('tileerror', () => {
+      tileErrors += 1;
+      if (tileErrors >= 3 && active === key) $('mapStatus').classList.add('show');
+    });
+    tiles.on('tileload', () => {
+      tileErrors = 0;
+      if (active === key) $('mapStatus').classList.remove('show');
+    });
     const bounds=[];
     r.steps.forEach((s,i)=>{
       if(i===0)return;
