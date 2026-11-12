@@ -4,24 +4,181 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#183d34" />
-  <meta name="description" content="טיול שבת למשפחות ברמת הגולן — 3 מסלולים קלים מאורטל, עם מפות לחיצות וניווט" />
+  <meta name="description" content="טיול שבת למשפחות ברמת הגולן — 3 מסלולים קלים מאורטל, עם מפה אינטראקטיבית עצמאית לכל מסלול" />
   <title>שבת בגולן | 14.11.2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoF9SVwJ6+ibv0=" crossorigin="" />
   <style>
-  :root { --bg:#f5f5ef;--paper:#fff;--ink:#1b3029;--muted:#63756f;--forest:#153f34;--forest2:#286b54;--line:#e0e8df;--gold:#f0b66b;--shadow:0 14px 46px rgba(23,53,39,.08); }
-  *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);font-family:Heebo,Arial,sans-serif;color:var(--ink);line-height:1.55}button,a{font:inherit}button{cursor:pointer}a{color:inherit}a:focus-visible,button:focus-visible{outline:3px solid #d1883d;outline-offset:3px}.container{max-width:1100px;margin:auto;padding:0 20px}.hero{background:linear-gradient(127deg,rgba(12,49,37,.96),rgba(30,88,65,.94)),radial-gradient(circle at 90% 14%,#88a280 0 12%,transparent 13%);color:#fff;overflow:hidden;position:relative}.hero:after{content:"";position:absolute;left:-80px;bottom:-125px;width:370px;height:370px;border:1px solid rgba(255,255,255,.15);border-radius:50%;box-shadow:0 0 0 45px rgba(255,255,255,.03),0 0 0 100px rgba(255,255,255,.02);pointer-events:none}.hero .container{padding-top:32px;padding-bottom:47px;position:relative;z-index:1}.eyebrow{display:flex;gap:9px;flex-wrap:wrap;align-items:center;font-size:13px;font-weight:700;color:#cde5d4}.eyebrow span{border:1px solid #ffffff45;border-radius:50px;padding:5px 12px}.hero h1{font-size:clamp(38px,7vw,66px);line-height:1.13;letter-spacing:-1.7px;font-weight:900;margin:19px 0 12px}.hero h1 em{font-style:normal;color:#f8c17c}.hero p{font-size:clamp(15px,2.5vw,19px);max-width:650px;margin:0;color:#d5e7dc}.hero-stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}.stat{padding:9px 15px;border:1px solid #ffffff30;background:#ffffff13;backdrop-filter:blur(4px);border-radius:12px;font-weight:600;font-size:14px}.section-top{padding-top:32px}.section-lead{color:var(--muted);margin:0 0 17px}.section-title{margin:0 0 5px;font-size:27px;line-height:1.3;letter-spacing:-.4px}.routes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:25px}.route-btn{position:relative;text-align:right;background:white;border:2px solid transparent;box-shadow:0 6px 24px #1b302908;border-radius:18px;padding:19px;display:flex;flex-direction:column;min-height:160px;transition:transform .2s,border-color .2s,background .2s}.route-btn:hover{transform:translateY(-2px)}.route-btn[aria-selected="true"]{border-color:#236950;background:#f1faf3}.route-num{color:#4d6b5a;font-size:12px;font-weight:800;letter-spacing:.3px}.route-symbol{font-size:28px;margin:8px 0 0}.route-name{font-size:18px;font-weight:800;line-height:1.3;margin-top:5px}.route-sub{color:#607169;font-size:13px;margin-top:6px}.check{position:absolute;left:15px;top:15px;font-size:20px;color:#277451}.check[hidden]{display:none}.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(290px,1fr);gap:20px;align-items:start}.paper{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}.mapbox{overflow:hidden}.mapbar{padding:19px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px}.mapbar b{font-size:18px}.mapbar small{color:#78867b;display:block}.map{height:430px;background:#dae8da}.map-hint{font-size:12px;padding:11px 17px;color:#6b7c72;border-top:1px solid var(--line)}.details{padding:22px}.tagrow{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 18px}.tag{background:#edf5ef;color:#2d654a;border-radius:9px;padding:6px 10px;font-size:12px;font-weight:700}.tag.amber{background:#fff2dd;color:#9c6526}.route-header h2{font-size:25px;line-height:1.25;margin:0 0 9px;letter-spacing:-.5px}.route-header p{margin:0;color:#63716a;font-size:15px}.steps{margin-top:18px}.step{display:grid;grid-template-columns:61px 1fr;gap:12px;position:relative;padding:0 0 18px}.step:not(:last-child):before{content:"";position:absolute;right:29px;top:35px;bottom:0;border-right:2px dashed #d4e3d9}.time{font-size:14px;font-weight:800;color:#2c6c51;padding-top:7px;direction:ltr;text-align:right}.step-content{background:#fafbf8;border:1px solid #edf0e9;border-radius:13px;padding:13px 14px}.step-content h3{font-size:15px;margin:0 0 5px}.step-content p{color:#66766d;font-size:13px;margin:0}.mini-links{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.mini-links a{text-decoration:none;border:1px solid #cddfd1;color:#236a4e;background:white;border-radius:8px;padding:5px 9px;font-size:12px;font-weight:700}.mini-links a:hover{background:#ecf5ee}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.action{border-radius:11px;border:1px solid #bfd8c9;padding:10px 15px;background:#fff;color:#235d46;text-decoration:none;font-weight:700;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:6px}.action.primary{background:#196047;color:#fff;border-color:#196047}.action:active{transform:translateY(1px)}.info{margin-top:20px;padding:16px 18px;border-radius:15px;background:#fff8e9;border:1px solid #f3e4c9;font-size:14px;color:#725227}.info b{display:block;margin-bottom:3px}.foot-section{padding-top:25px;padding-bottom:65px}.helpgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.help{padding:18px 19px}.help h3{margin:0 0 8px;font-size:16px}.help p{font-size:13px;color:var(--muted);margin:0}.help a{color:#1d694a}.footer{text-align:center;border-top:1px solid #d8e2d8;padding:22px;color:#78867b;font-size:12px}.leaflet-container{font-family:Heebo,Arial,sans-serif}.leaflet-popup-content-wrapper{border-radius:14px}.leaflet-popup-content{direction:rtl;text-align:right;min-width:180px}.leaflet-popup-content h4{font-size:15px;margin:0 0 7px}.leaflet-popup-content p{font-size:12px;margin:0 0 10px}.popupbutton{display:inline-block;color:#fff!important;background:#1a6249;border-radius:8px;padding:7px 10px;text-decoration:none;font-weight:700}.number-icon{width:33px;height:33px;border:3px solid white;border-radius:100%;background:#1e644b;box-shadow:0 2px 9px #0004;color:white;text-align:center;font-size:14px;line-height:27px;font-weight:900}.topstrip{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.topstrip a{font-size:13px;text-decoration:none;color:#24674d;font-weight:700}.share-floating{display:none}@media(max-width:790px){.layout{display:flex;flex-direction:column}.mapbox,.detailbox{width:100%}.routes{gap:8px}.route-btn{padding:12px;min-height:145px}.route-name{font-size:15px}.route-sub{font-size:11px}.route-symbol{font-size:24px}.map{height:340px}.hero .container{padding-bottom:35px}.hero-stats{gap:7px}.stat{font-size:12px;padding:8px 11px}.helpgrid{grid-template-columns:1fr}.container{padding-right:15px;padding-left:15px}.details{padding:17px}.mapbar{padding:15px 17px}.section-title{font-size:24px}}@media(max-width:440px){.routes{grid-template-columns:1fr;gap:8px}.route-btn{min-height:0;display:grid;grid-template-columns:34px 1fr;column-gap:12px;align-items:center;padding:12px 15px}.route-num{grid-column:2;grid-row:1}.route-symbol{grid-column:1;grid-row:1/span 3;margin:0}.route-name{grid-column:2;grid-row:2;margin:0}.route-sub{grid-column:2;grid-row:3;margin:0}.map{height:300px}.hero h1{font-size:40px}.topstrip{flex-direction:column;align-items:start}.share-floating{display:block;position:fixed;z-index:999;bottom:16px;left:15px;box-shadow:0 8px 25px #1b30293d}.step{grid-template-columns:55px 1fr}.step:not(:last-child):before{right:26px}}
+  :root {
+    --bg:#f5f5ef;
+    --paper:#fff;
+    --ink:#1b3029;
+    --muted:#63756f;
+    --forest:#153f34;
+    --forest2:#286b54;
+    --line:#e0e8df;
+    --gold:#f0b66b;
+    --shadow:0 14px 46px rgba(23,53,39,.08);
+    --map-bg:#e7efe3;
+    --map-deep:#d8e6d5;
+    --map-accent:#7db08f;
+    --route:#1e644b;
+    --route-soft:#94c2a1;
+    --sand:#efe2bd;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);font-family:Heebo,Arial,sans-serif;color:var(--ink);line-height:1.55}
+  button,a{font:inherit}
+  button{cursor:pointer}
+  a{color:inherit}
+  a:focus-visible,button:focus-visible{outline:3px solid #d1883d;outline-offset:3px}
+  .container{max-width:1100px;margin:auto;padding:0 20px}
+  .hero{background:linear-gradient(127deg,rgba(12,49,37,.96),rgba(30,88,65,.94)),radial-gradient(circle at 90% 14%,#88a280 0 12%,transparent 13%);color:#fff;overflow:hidden;position:relative}
+  .hero:after{content:"";position:absolute;left:-80px;bottom:-125px;width:370px;height:370px;border:1px solid rgba(255,255,255,.15);border-radius:50%;box-shadow:0 0 0 45px rgba(255,255,255,.03),0 0 0 100px rgba(255,255,255,.02);pointer-events:none}
+  .hero .container{padding-top:32px;padding-bottom:47px;position:relative;z-index:1}
+  .eyebrow{display:flex;gap:9px;flex-wrap:wrap;align-items:center;font-size:13px;font-weight:700;color:#cde5d4}
+  .eyebrow span{border:1px solid #ffffff45;border-radius:50px;padding:5px 12px}
+  .hero h1{font-size:clamp(38px,7vw,66px);line-height:1.13;letter-spacing:-1.7px;font-weight:900;margin:19px 0 12px}
+  .hero h1 em{font-style:normal;color:#f8c17c}
+  .hero p{font-size:clamp(15px,2.5vw,19px);max-width:650px;margin:0;color:#d5e7dc}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}
+  .stat{padding:9px 15px;border:1px solid #ffffff30;background:#ffffff13;backdrop-filter:blur(4px);border-radius:12px;font-weight:600;font-size:14px}
+  .section-top{padding-top:32px}
+  .section-lead{color:var(--muted);margin:0 0 17px}
+  .section-title{margin:0 0 5px;font-size:27px;line-height:1.3;letter-spacing:-.4px}
+  .routes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:25px}
+  .route-btn{position:relative;text-align:right;background:white;border:2px solid transparent;box-shadow:0 6px 24px #1b302908;border-radius:18px;padding:19px;display:flex;flex-direction:column;min-height:160px;transition:transform .2s,border-color .2s,background .2s}
+  .route-btn:hover{transform:translateY(-2px)}
+  .route-btn[aria-selected="true"]{border-color:#236950;background:#f1faf3}
+  .route-num{color:#4d6b5a;font-size:12px;font-weight:800;letter-spacing:.3px}
+  .route-symbol{font-size:28px;margin:8px 0 0}
+  .route-name{font-size:18px;font-weight:800;line-height:1.3;margin-top:5px}
+  .route-sub{color:#607169;font-size:13px;margin-top:6px}
+  .check{position:absolute;left:15px;top:15px;font-size:20px;color:#277451}
+  .check[hidden]{display:none}
+  .layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(290px,1fr);gap:20px;align-items:start}
+  .paper{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+  .mapbox{overflow:hidden}
+  .mapbar{padding:19px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .mapbar b{font-size:18px}
+  .mapbar small{color:#78867b;display:block}
+  .details{padding:22px}
+  .tagrow{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 18px}
+  .tag{background:#edf5ef;color:#2d654a;border-radius:9px;padding:6px 10px;font-size:12px;font-weight:700}
+  .tag.amber{background:#fff2dd;color:#9c6526}
+  .route-header h2{font-size:25px;line-height:1.25;margin:0 0 9px;letter-spacing:-.5px}
+  .route-header p{margin:0;color:#63716a;font-size:15px}
+  .steps{margin-top:18px}
+  .step{display:grid;grid-template-columns:61px 1fr;gap:12px;position:relative;padding:0 0 18px}
+  .step:not(:last-child):before{content:"";position:absolute;right:29px;top:35px;bottom:0;border-right:2px dashed #d4e3d9}
+  .time{font-size:14px;font-weight:800;color:#2c6c51;padding-top:7px;direction:ltr;text-align:right}
+  .step-content{background:#fafbf8;border:1px solid #edf0e9;border-radius:13px;padding:13px 14px;transition:border-color .18s, box-shadow .18s, background .18s}
+  .step-content h3{font-size:15px;margin:0 0 5px}
+  .step-content p{color:#66766d;font-size:13px;margin:0}
+  .step.is-active .step-content{background:#f1faf3;border-color:#9ac8ad;box-shadow:0 0 0 3px rgba(39,116,81,.08)}
+  .mini-links{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+  .mini-links a,.mini-links button{text-decoration:none;border:1px solid #cddfd1;color:#236a4e;background:white;border-radius:8px;padding:5px 9px;font-size:12px;font-weight:700}
+  .mini-links button{cursor:pointer}
+  .mini-links a:hover,.mini-links button:hover{background:#ecf5ee}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .action{border-radius:11px;border:1px solid #bfd8c9;padding:10px 15px;background:#fff;color:#235d46;text-decoration:none;font-weight:700;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+  .action.primary{background:#196047;color:#fff;border-color:#196047}
+  .action:active{transform:translateY(1px)}
+  .info{margin-top:20px;padding:16px 18px;border-radius:15px;background:#fff8e9;border:1px solid #f3e4c9;font-size:14px;color:#725227}
+  .info b{display:block;margin-bottom:3px}
+  .foot-section{padding-top:25px;padding-bottom:65px}
+  .helpgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .help{padding:18px 19px}
+  .help h3{margin:0 0 8px;font-size:16px}
+  .help p{font-size:13px;color:var(--muted);margin:0}
+  .help a{color:#1d694a}
+  .footer{text-align:center;border-top:1px solid #d8e2d8;padding:22px;color:#78867b;font-size:12px}
+  .topstrip{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .topstrip a{font-size:13px;text-decoration:none;color:#24674d;font-weight:700}
+  .share-floating{display:none}
 
-  /* Leaflet computes positions from a left-to-right pixel origin even when the page is Hebrew. */
-  .map, .leaflet-container, .leaflet-map-pane, .leaflet-tile-pane { direction:ltr !important; }
-  .map { width:100%; min-width:0; position:relative; overflow:hidden; isolation:isolate; }
-  #map-banias, #map-gamla { display:none; }
-  .leaflet-container img.leaflet-tile { max-width:none !important; max-height:none !important; }
-  .leaflet-popup-content { direction:rtl !important; text-align:right; }
-  .map-status {display:none; margin:0; padding:9px 16px; font-size:13px; color:#765120; background:#fff7e6; border-top:1px solid #efd9ab;}
-  .map-status.show {display:block;}
+  /* self-contained map */
+  .schematic-wrap{padding:0 16px 16px}
+  .schematic-stage{position:relative;border-radius:20px;overflow:hidden;background:
+      radial-gradient(circle at 22% 20%, rgba(255,255,255,.42), transparent 28%),
+      radial-gradient(circle at 78% 74%, rgba(255,255,255,.28), transparent 23%),
+      linear-gradient(180deg, var(--map-bg), var(--map-deep));
+      border:1px solid #d7e5d9;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.6);
+  }
+  .schematic-topline{position:absolute;top:14px;right:16px;left:16px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none;z-index:2}
+  .schematic-badge{background:rgba(255,255,255,.72);backdrop-filter:blur(8px);border:1px solid rgba(42,97,73,.12);color:#2b5b49;padding:7px 11px;border-radius:999px;font-size:12px;font-weight:800;box-shadow:0 8px 25px rgba(23,53,39,.08)}
+  .schematic-compass{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(42,97,73,.12);padding:7px 11px;border-radius:999px;font-size:12px;font-weight:800;color:#2b5b49;box-shadow:0 8px 25px rgba(23,53,39,.08)}
+  .schematic-map{display:block;width:100%;height:auto;aspect-ratio: 1000 / 640}
+  .map-callout{margin-top:12px;background:#fcfffc;border:1px solid #d7e6d9;border-radius:14px;padding:12px 14px;color:#355648;font-size:13px}
+  .map-callout b{display:block;font-size:15px;color:#1a4c39;margin-bottom:4px}
+  .map-callout .callout-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+  .callout-pill{background:#edf5ef;color:#296449;border-radius:999px;padding:4px 9px;font-size:11px;font-weight:800}
+  .map-hint{font-size:12px;padding:11px 17px;color:#6b7c72;border-top:1px solid var(--line)}
+  .map-legend{display:flex;gap:8px;flex-wrap:wrap;padding:12px 17px 0}
+  .legend-chip{display:inline-flex;align-items:center;gap:6px;background:#f7fbf8;border:1px solid #d8e5dc;border-radius:999px;padding:5px 9px;font-size:12px;color:#4e645a;font-weight:700}
+  .legend-dot,.legend-route,.legend-start{display:inline-block;flex:0 0 auto}
+  .legend-dot{width:11px;height:11px;border-radius:50%;background:#1e644b;border:2px solid white;box-shadow:0 0 0 1px #88b899}
+  .legend-start{width:11px;height:11px;border-radius:50%;background:#f0b66b;border:2px solid white;box-shadow:0 0 0 1px #c5984c}
+  .legend-route{width:18px;height:0;border-top:3px solid #2a795a}
+
+  .svg-region{fill:rgba(255,255,255,.3);stroke:#bfd4c4;stroke-width:2}
+  .svg-lake{fill:#cce2da;opacity:.7}
+  .svg-texture{stroke:rgba(52,98,72,.18);stroke-width:5;stroke-linecap:round}
+  .svg-contour{stroke:rgba(52,98,72,.12);stroke-width:2.4;fill:none}
+  .svg-route-line{fill:none;stroke:#2a795a;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0;filter:drop-shadow(0 4px 8px rgba(23,53,39,.14))}
+  .svg-route-shadow{fill:none;stroke:rgba(255,255,255,.5);stroke-width:14;stroke-linecap:round;stroke-linejoin:round}
+  .svg-marker{cursor:pointer;outline:none}
+  .svg-marker:focus-visible .marker-core{stroke:#d1883d;stroke-width:6}
+  .marker-core{fill:#1e644b;stroke:#fff;stroke-width:4;transition:transform .18s, fill .18s, stroke-width .18s, filter .18s}
+  .marker-start .marker-core{fill:#cf8f3c}
+  .marker-number{fill:white;font-size:16px;font-weight:900;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+  .marker-ring{fill:none;stroke:rgba(30,100,75,.16);stroke-width:10}
+  .svg-marker.is-active .marker-core{fill:#0f5038;filter:drop-shadow(0 6px 16px rgba(23,53,39,.22))}
+  .svg-marker.is-active .marker-ring{stroke:rgba(30,100,75,.28)}
+  .marker-label{font-size:15px;font-weight:800;fill:#1c4636}
+  .marker-sub{font-size:12px;font-weight:700;fill:#678074}
+  .mini-note{font-size:12px;font-weight:800;fill:#4f695d}
+  .route-title-svg{font-size:25px;font-weight:900;fill:#244f3e}
+  .route-sub-svg{font-size:14px;font-weight:700;fill:#5d776a}
+  .north-arrow{fill:#1e644b}
+
+  @media(max-width:790px){
+    .layout{display:flex;flex-direction:column}
+    .mapbox,.detailbox{width:100%}
+    .routes{gap:8px}
+    .route-btn{padding:12px;min-height:145px}
+    .route-name{font-size:15px}
+    .route-sub{font-size:11px}
+    .route-symbol{font-size:24px}
+    .hero .container{padding-bottom:35px}
+    .hero-stats{gap:7px}
+    .stat{font-size:12px;padding:8px 11px}
+    .helpgrid{grid-template-columns:1fr}
+    .container{padding-right:15px;padding-left:15px}
+    .details{padding:17px}
+    .mapbar{padding:15px 17px}
+    .section-title{font-size:24px}
+    .schematic-wrap{padding:0 12px 12px}
+    .map-callout{font-size:12.5px}
+  }
+  @media(max-width:440px){
+    .routes{grid-template-columns:1fr;gap:8px}
+    .route-btn{min-height:0;display:grid;grid-template-columns:34px 1fr;column-gap:12px;align-items:center;padding:12px 15px}
+    .route-num{grid-column:2;grid-row:1}
+    .route-symbol{grid-column:1;grid-row:1/span 3;margin:0}
+    .route-name{grid-column:2;grid-row:2;margin:0}
+    .route-sub{grid-column:2;grid-row:3;margin:0}
+    .hero h1{font-size:40px}
+    .topstrip{flex-direction:column;align-items:start}
+    .share-floating{display:block;position:fixed;z-index:999;bottom:16px;left:15px;box-shadow:0 8px 25px #1b30293d}
+    .step{grid-template-columns:55px 1fr}
+    .step:not(:last-child):before{right:26px}
+    .schematic-topline{top:10px;right:10px;left:10px}
+    .schematic-badge,.schematic-compass{font-size:11px;padding:6px 9px}
+  }
   </style>
 </head>
 <body>
@@ -40,33 +197,33 @@
 </section>
 <section class="layout" aria-label="מפה ותחנות">
   <div class="paper mapbox">
-    <div class="mapbar"><div><b id="mapTitle">מפת המסלול</b><small>לחצו על הסמנים לקבלת פרטים</small></div><div style="display:flex;gap:7px;flex-wrap:wrap"><button class="action" id="refreshMap" type="button" aria-label="רענון תצוגת המפה">⟳</button><button class="action" id="openGoogleMap">↗ מפה מלאה</button></div></div>
-    <div id="map-odem" class="map" aria-label="מפת יער אודם"></div>
-    <div id="map-banias" class="map" aria-label="מפת הבניאס"></div>
-    <div id="map-gamla" class="map" aria-label="מפת גמלא"></div>
-    <div class="map-status" id="mapStatus" role="status">אם המפה לא מוצגת בשלמותה, לחצו על ⟳ או על „מפה מלאה” לפתיחה ב־Google Maps.</div>
-    <div class="map-hint">המפה כאן מיועדת להתמצאות. לניווט לכניסה המדויקת לחצו על Google Maps או Waze בתחנה הרלוונטית; אין להסתמך על מיקום הסמן לצורכי נהיגה.</div>
+    <div class="mapbar"><div><b id="mapTitle">מפת המסלול</b><small>לחצו על הסמנים כדי לראות פרטים על כל תחנה</small></div><div style="display:flex;gap:7px;flex-wrap:wrap"><button class="action" id="resetSelection" type="button">◌ הצג הכול</button><button class="action" id="focusFirstStop" type="button">◎ תחנה ראשונה</button></div></div>
+    <div class="map-legend"><span class="legend-chip"><span class="legend-route"></span> סדר המסלול</span><span class="legend-chip"><span class="legend-start"></span> יציאה מאורטל</span><span class="legend-chip"><span class="legend-dot"></span> תחנה לחיצה</span></div>
+    <div class="schematic-wrap">
+      <div class="schematic-stage">
+        <div class="schematic-topline"><div class="schematic-badge" id="mapBadge">תרשים אינטראקטיבי עצמאי</div><div class="schematic-compass"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path class="north-arrow" d="M7 1l2.7 6.2H7.9V13H6.1V7.2H4.3L7 1z"/></svg> צפון</div></div>
+        <svg id="routeMap" class="schematic-map" viewBox="0 0 1000 640" role="img" aria-label="מפת המסלול האינטראקטיבית"></svg>
+      </div>
+      <div class="map-callout" id="mapCallout"><b>לחצו על תחנה</b><div>המפה כאן היא המחשה אינטראקטיבית עצמאית של סדר התחנות והיחס ביניהן. לחיצה על כל תחנה תציג את פרטיה ותסמן אותה גם ברשימה.</div></div>
+    </div>
+    <div class="map-hint">זו מפה עצמאית סכמטית של המסלול — לא מפת ניווט מדויקת. היא נועדה להמחיש את סדר התחנות, הכיוון היחסי והמרחקים המשוערים ביניהן.</div>
   </div>
   <div class="paper detailbox"><div class="details" id="details"></div></div>
 </section>
 <section id="advice" class="foot-section">
   <h2 class="section-title" style="margin-bottom:14px">לפני שיוצאים</h2>
   <div class="helpgrid">
-    <div class="paper help"><h3>📞 לתאם לפני</h3><p>בחוות אודם יש לברר זמינות 11 מקומות בסיור 12:30, ובכל המסלולים להזמין מסעדה ל־11. לא בוצעה הזמנה בפועל.</p></div>
-    <div class="paper help"><h3>🧭 בטיחות ונוחות</h3><p>רק שבילים מסומנים; בלי ירידה לג'ובה, לעיר גמלא העתיקה או למסלולים התלולים. להביא מים, נעליים סגורות ושכבה ארוכה לתצפיות.</p></div>
-    <div class="paper help"><h3>📅 שעות וסגירות</h3><p>כניסה אחרונה לשמורות רט״ג לרוב שעה לפני הסגירה. בדקו בבוקר הביקור <a href="https://www.parks.org.il/" target="_blank" rel="noopener">עדכוני רט״ג</a> והנחיות מקומיות.</p></div>
+    <div class="paper help"><h3>📞 תיאומים אחרונים</h3><p>בחווה ביער אודם ובמסעדות כדאי לוודא טלפונית שיש מקום ל־11 איש. למסלול הבניאס מומלץ לבדוק עדכונים של רט״ג.</p></div>
+    <div class="paper help"><h3>👟 מה להביא</h3><p>נעלי הליכה נוחות, מים לכל משתתף, כובעים לילדים ושכבה קלה לשעות שבהן עומדים בתצפיות. המסלולים עצמם קצרים יחסית.</p></div>
+    <div class="paper help"><h3>🧭 בחירה מהירה</h3><p><b>הכי רגוע:</b> יער אודם. <b>הכי מרשים:</b> מבצר נמרוד והבניאס. <b>הכי גמיש:</b> הר בנטל וגמלא.</p></div>
   </div>
 </section>
 </main>
-<footer class="footer">תכנון משפחתי לרמת הגולן · תיקון תצוגת מפות v2 · 12.11.2026 · זמני נסיעה והגעה משוערים · המפות והניווט דורשים חיבור לאינטרנט</footer>
-<button id="floatShare" class="action primary share-floating">↗ שתפו בקבוצה</button>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<button class="action primary share-floating" id="floatShare">שתפו בקבוצה ↗</button>
+<footer class="footer">נבנה במיוחד לשבת המשפחתית ברמת הגולן · אתר שיתופי פשוט לפתיחה מהטלפון</footer>
 <script>
-(function(){
-  'use strict';
+(() => {
   const origin='קיבוץ אורטל, רמת הגולן, ישראל';
-  const mapSearch=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
-  const waze=q=>'https://www.waze.com/ul?q='+encodeURIComponent(q)+'&navigate=yes';
   const routes={
     odem:{name:'יער אודם והחווה',num:1,icon:'🌳',subtitle:'יער, תופעה געשית ומפגש עם בעלי חיים',difficulty:'קל מאוד',walking:'שביל מעגלי נגיש של 700 מ׳',finish:'15:30',cost:'כ־495 ₪ פעילות, לא כולל אוכל',highlight:'מומלץ לילדים בני 6 ו־11. מותנה באישור סיור החווה.',notes:'תיירות גולן מפרסמת סיורי שבת ב־11:00 וב־12:30, אך הפרסומים אינם לגמרי אחידים. חובה להתקשר ולוודא סבב 12:30 וזמינות ל־11 איש.',phone:'054-7653123',phoneLabel:'לתיאום החווה',official:'https://tourgolan.org.il/holidays/החווה-ביער-אודם-2/',officialLabel:'מידע על סיור החווה',steps:[
       {time:'11:00',name:'יציאה מקיבוץ אורטל',desc:'נסיעה משוערת לכיוון מושב אודם.',q:origin,lat:33.0915,lng:35.7516},
@@ -84,107 +241,198 @@
       {time:'11:00',name:'יציאה מקיבוץ אורטל',desc:'נסיעה קצרה לראש הר בנטל.',q:origin,lat:33.0915,lng:35.7516},
       {time:'11:15',name:'הר בנטל',desc:'עצירה לתצפית, שיטוט קצר באזור המוצב הישן והליכה קצרה בלבד.',q:'הר בנטל, מרום גולן',lat:33.131,lng:35.786},
       {time:'13:00',name:'שמורת טבע גמלא',desc:'שביל הנשרים המעגלי: 600 מטר, בטון סלול, שיפוע מתון, מקומות ישיבה ותצפיות.',q:'שמורת טבע גמלא, רמת הגולן',lat:32.916,lng:35.746,source:'https://www.parks.org.il/trip/gamla-2/'},
-      {time:'15:00',name:'מיטשוס, קצרין',desc:'מסעדת בשרים באזור התעשייה בקצרין, פתוחה בשבת לפי רישומי המקום. לתאם שולחן מראש.',q:'מיטשוס, השוקת, קצרין',lat:32.991,lng:35.688,source:'https://www.waze.com/he/live-map/directions/מיטשוס-השוקת-קצרין?to=place.w.23396682.234032355.5068'}
+      {time:'15:00',name:'מיטשוס, קצרין',desc:'מסעדת בשרים באזור התעשייה בקצרין, פתוחה בשבת לפי רישומי המקום. לתאם שולחן מראש.',q:'מיטשוס, השוקת, קצרין',lat:32.991,lng:35.688,source:'https://easy.co.il/page/10027133'}
     ]}
   };
-  const data=Object.entries(routes);
-  let active=(location.hash.slice(1) in routes)?location.hash.slice(1):'odem';
-  const maps={};
-  const $=id=>document.getElementById(id);
-  const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  function wholeRoute(r){let stops=r.steps.map(s=>s.q);return 'https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(stops[0])+'&destination='+encodeURIComponent(stops[stops.length-1])+'&waypoints='+stops.slice(1,-1).map(encodeURIComponent).join('%7C')+'&travelmode=driving';}
-  function renderButtons(){ $('routeButtons').innerHTML=data.map(([key,r])=>`<button class="route-btn" role="tab" aria-selected="${key===active}" data-route="${key}"><span class="check" ${key===active?'':'hidden'}>✓</span><span class="route-num">אפשרות ${r.num}</span><span class="route-symbol" aria-hidden="true">${r.icon}</span><span class="route-name">${r.name}</span><span class="route-sub">${r.subtitle}</span></button>`).join('');document.querySelectorAll('.route-btn').forEach(b=>b.addEventListener('click',()=>setRoute(b.dataset.route)));}
-  function renderDetails(r){ $('mapTitle').textContent='מפת מסלול '+r.num+' — '+r.name;
-    $('details').innerHTML=`<div class="route-header"><h2>${r.icon} ${r.name}</h2><p>${r.subtitle}</p></div><div class="tagrow"><span class="tag">🥾 ${r.difficulty}</span><span class="tag">${r.walking}</span><span class="tag">🕒 סיום משוער ${r.finish}</span></div><div class="tagrow"><span class="tag amber">💳 ${r.cost}</span></div><div style="font-size:14px;font-weight:700;color:#296449">${r.highlight}</div><div class="steps">${r.steps.map((s,i)=>`<div class="step"><div class="time">${s.time}</div><div class="step-content"><h3>${i+1}. ${escapeHTML(s.name)}</h3><p>${escapeHTML(s.desc)}</p><div class="mini-links"><a href="${mapSearch(s.q)}" target="_blank" rel="noopener noreferrer">📍 Google Maps</a><a href="${waze(s.q)}" target="_blank" rel="noopener noreferrer">🚗 Waze</a>${s.source?`<a href="${encodeURI(s.source)}" target="_blank" rel="noopener noreferrer">ℹ מידע</a>`:''}</div></div></div>`).join('')}</div><div class="actions"><a class="action primary" href="${wholeRoute(r)}" target="_blank" rel="noopener noreferrer">🗺️ ניווט כל התחנות</a><button class="action" id="shareSelected">↗ שיתוף המסלול</button></div><div class="info"><b>⚠️ לתשומת לב</b>${r.notes}<div style="margin-top:9px"><a href="tel:${r.phone}" style="font-weight:800;color:#725227;text-decoration:underline">☎ ${r.phone} — ${r.phoneLabel}</a></div><div style="margin-top:5px"><a target="_blank" rel="noopener" href="${encodeURI(r.official)}" style="color:#725227;text-decoration:underline">מידע רשמי: ${r.officialLabel}</a></div></div>`;
-    $('openGoogleMap').onclick=()=>window.open(wholeRoute(r),'_blank','noopener');$('shareSelected').onclick=share;
+
+  const data = Object.entries(routes);
+  let active = (location.hash.slice(1) in routes) ? location.hash.slice(1) : 'odem';
+  let activeStopIndex = null;
+  const $ = id => document.getElementById(id);
+  const escapeHTML = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  function renderButtons(){
+    $('routeButtons').innerHTML = data.map(([key,r]) => `
+      <button class="route-btn" role="tab" aria-selected="${key===active}" data-route="${key}">
+        <span class="check" ${key===active?'':'hidden'}>✓</span>
+        <span class="route-num">אפשרות ${r.num}</span>
+        <span class="route-symbol" aria-hidden="true">${r.icon}</span>
+        <span class="route-name">${r.name}</span>
+        <span class="route-sub">${r.subtitle}</span>
+      </button>`).join('');
+    document.querySelectorAll('.route-btn').forEach(b => b.addEventListener('click', () => setRoute(b.dataset.route)));
   }
-  // Keep a separate real map instance per route, and refresh its dimensions AFTER it becomes visible.
-  const mapViews = {};
-  let refreshTimeouts = [];
-  function initMap(key){
-    if(maps[key] || !window.L) return;
-    const element = $('map-'+key);
-    if(!element || element.offsetWidth < 100 || element.offsetHeight < 100) return;
-    const r = routes[key];
-    const map = L.map(element,{scrollWheelZoom:false,zoomControl:true});
-    // OSM standard tiles do not require an API key. CARTO's unauthenticated
-    // tiles return a 200 image containing "API KEY REQUIRED", not a tileerror.
-    // Using OSM directly also avoids accidentally displaying that watermark.
-    const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>'
-    }).addTo(map);
-    let tileErrors = 0;
-    tiles.on('tileerror', () => {
-      tileErrors += 1;
-      if (tileErrors >= 3 && active === key) $('mapStatus').classList.add('show');
-    });
-    tiles.on('tileload', () => {
-      tileErrors = 0;
-      if (active === key) $('mapStatus').classList.remove('show');
-    });
-    const bounds=[];
-    r.steps.forEach((s,i)=>{
-      if(i===0)return;
-      const pin=L.divIcon({className:'',html:`<div class="number-icon">${i}</div>`,iconSize:[33,33],iconAnchor:[16,16]});
-      L.marker([s.lat,s.lng],{icon:pin}).addTo(map).bindPopup(`<h4>${escapeHTML(s.name)}</h4><p>${escapeHTML(s.time)} · ${escapeHTML(s.desc)}</p><a class="popupbutton" href="${mapSearch(s.q)}" target="_blank" rel="noopener noreferrer">פתחו ניווט ↗</a>`);
-      bounds.push([s.lat,s.lng]);
-    });
-    maps[key]=map;
-    mapViews[key]={bounds:bounds};
+
+  function renderDetails(r){
+    $('mapTitle').textContent = 'מפת מסלול ' + r.num + ' — ' + r.name;
+    $('mapBadge').textContent = r.icon + ' ' + r.name;
+    $('details').innerHTML = `
+      <div class="route-header"><h2>${r.icon} ${r.name}</h2><p>${r.subtitle}</p></div>
+      <div class="tagrow"><span class="tag">🥾 ${r.difficulty}</span><span class="tag">${r.walking}</span><span class="tag">🕒 סיום משוער ${r.finish}</span></div>
+      <div class="tagrow"><span class="tag amber">💳 ${r.cost}</span></div>
+      <div style="font-size:14px;font-weight:700;color:#296449">${r.highlight}</div>
+      <div class="steps">${r.steps.map((s,i)=>`
+        <div class="step" data-step-index="${i}">
+          <div class="time">${s.time}</div>
+          <div class="step-content">
+            <h3>${i+1}. ${escapeHTML(s.name)}</h3>
+            <p>${escapeHTML(s.desc)}</p>
+            <div class="mini-links">
+              <button type="button" data-focus-step="${i}">סמן במפה</button>
+              ${s.source?`<a href="${encodeURI(s.source)}" target="_blank" rel="noopener noreferrer">ℹ מידע</a>`:''}
+            </div>
+          </div>
+        </div>`).join('')}</div>
+      <div class="actions">
+        <button class="action primary" id="showFirstOnMap" type="button">◉ הדגש תחנה ראשונה</button>
+        <button class="action" id="shareSelected" type="button">↗ שיתוף המסלול</button>
+      </div>
+      <div class="info"><b>⚠️ לתשומת לב</b>${r.notes}
+        <div style="margin-top:9px"><a href="tel:${r.phone}" style="font-weight:800;color:#725227;text-decoration:underline">☎ ${r.phone} — ${r.phoneLabel}</a></div>
+        <div style="margin-top:5px"><a target="_blank" rel="noopener" href="${encodeURI(r.official)}" style="color:#725227;text-decoration:underline">מידע רשמי: ${r.officialLabel}</a></div>
+      </div>`;
+
+    document.querySelectorAll('[data-focus-step]').forEach(btn => btn.addEventListener('click', () => selectStop(Number(btn.dataset.focusStep), true)));
+    document.querySelectorAll('.step').forEach(step => step.addEventListener('click', () => selectStop(Number(step.dataset.stepIndex), false)));
+    $('shareSelected').onclick = share;
+    $('showFirstOnMap').onclick = () => selectStop(1, true);
   }
-  function refreshVisibleMap(key,centerOnStops=false){
-    if(active!==key)return;
-    const element=$('map-'+key);
-    if(!element || element.offsetWidth<100 || element.offsetHeight<100)return;
-    initMap(key);
-    const map=maps[key];
-    if(!map)return;
-    map.invalidateSize({pan:false,animate:false});
-    if(centerOnStops && mapViews[key].bounds.length){
-      map.fitBounds(mapViews[key].bounds,{padding:[35,35],maxZoom:12,animate:false});
+
+  function projectRoute(r){
+    const pts = r.steps.map((s,idx)=>({...s, idx}));
+    const lats = pts.map(p=>p.lat), lngs = pts.map(p=>p.lng);
+    let minLat = Math.min(...lats), maxLat = Math.max(...lats), minLng = Math.min(...lngs), maxLng = Math.max(...lngs);
+    if (maxLat === minLat) { maxLat += .01; minLat -= .01; }
+    if (maxLng === minLng) { maxLng += .01; minLng -= .01; }
+    const latPad = (maxLat - minLat) * .22;
+    const lngPad = (maxLng - minLng) * .18;
+    minLat -= latPad; maxLat += latPad; minLng -= lngPad; maxLng += lngPad;
+    return pts.map((p,i) => {
+      const x = 110 + ((p.lng - minLng) / (maxLng - minLng)) * 760;
+      const y = 515 - ((p.lat - minLat) / (maxLat - minLat)) * 355;
+      const labelDx = (i % 2 === 0) ? 18 : -18;
+      const labelDy = (i === 0) ? -24 : (i % 2 === 0 ? -18 : 30);
+      return {...p, x, y, labelX: x + labelDx, labelY: y + labelDy};
+    });
+  }
+
+  function routePath(points){
+    if(!points.length) return '';
+    return points.map((p,i)=>`${i?'L':'M'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
+  }
+
+  function renderMap(r){
+    const points = projectRoute(r);
+    const path = routePath(points);
+    const labels = [
+      {x:110,y:122,w:180,h:68,text:'צפון הגולן'},
+      {x:708,y:470,w:160,h:60,text:'קצרין / מרכז הגולן'}
+    ];
+
+    $('routeMap').innerHTML = `
+      <defs>
+        <linearGradient id="bgWash" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#eef5ea"/>
+          <stop offset="100%" stop-color="#dce9d9"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="1000" height="640" rx="0" fill="url(#bgWash)" />
+      <path class="svg-region" d="M90,110 C170,70 260,80 355,115 C470,158 560,145 675,108 C760,82 845,90 900,135 L900,525 C810,556 705,570 595,556 C460,539 342,514 228,542 C170,556 120,555 84,534 Z"/>
+      <path class="svg-lake" d="M688,188 C730,173 780,184 804,216 C820,239 815,271 786,283 C748,299 689,293 666,260 C649,236 659,200 688,188Z"/>
+      <path class="svg-lake" d="M178,398 C214,385 253,389 275,414 C297,439 286,470 249,480 C214,490 171,480 154,452 C141,430 149,407 178,398Z" opacity=".35"/>
+      <path class="svg-texture" d="M185 160 L240 132 M274 147 L338 112 M356 180 L418 148 M531 175 L602 140 M692 155 L750 132"/>
+      <path class="svg-texture" d="M158 302 L225 278 M262 336 L333 302 M414 323 L494 291 M581 347 L653 315 M723 318 L792 286"/>
+      <path class="svg-texture" d="M173 475 L256 443 M314 487 L391 451 M463 503 L549 472 M617 492 L705 460"/>
+      <path class="svg-contour" d="M130,205 C246,171 350,174 447,200 C541,225 673,224 842,179"/>
+      <path class="svg-contour" d="M142,267 C262,233 355,246 444,271 C549,302 668,300 852,246"/>
+      <path class="svg-contour" d="M126,424 C242,382 345,392 439,420 C550,453 678,453 848,398"/>
+      <text x="92" y="76" class="route-title-svg">מפה אינטראקטיבית — ${escapeHTML(r.name)}</text>
+      <text x="92" y="100" class="route-sub-svg">תרשים עצמאי של תחנות המסלול וסדר העצירות</text>
+      ${labels.map(l=>`<g opacity=".9"><rect x="${l.x}" y="${l.y}" width="${l.w}" height="${l.h}" rx="18" fill="rgba(255,255,255,.58)" stroke="rgba(120,146,132,.35)"/><text x="${l.x+l.w/2}" y="${l.y+40}" class="mini-note" text-anchor="middle">${l.text}</text></g>`).join('')}
+      <path class="svg-route-shadow" d="${path}" />
+      <path class="svg-route-line" d="${path}" />
+      ${points.map((p,i) => {
+        const isStart = i===0;
+        const dx = p.labelX < p.x ? -10 : 10;
+        const anchor = p.labelX < p.x ? 'end' : 'start';
+        return `
+          <g class="svg-marker ${isStart?'marker-start':''}" data-step-index="${i}" tabindex="0" role="button" aria-label="${escapeHTML(p.name)} בשעה ${escapeHTML(p.time)}">
+            <circle class="marker-ring" cx="${p.x}" cy="${p.y}" r="23"></circle>
+            <circle class="marker-core" cx="${p.x}" cy="${p.y}" r="18"></circle>
+            <text class="marker-number" x="${p.x}" y="${p.y+1}">${i+1}</text>
+            <line x1="${p.x}" y1="${p.y}" x2="${p.labelX}" y2="${p.labelY-6}" stroke="rgba(44,89,66,.28)" stroke-width="2" />
+            <text class="marker-label" x="${p.labelX+dx}" y="${p.labelY}" text-anchor="${anchor}">${escapeHTML(p.name)}</text>
+            <text class="marker-sub" x="${p.labelX+dx}" y="${p.labelY+18}" text-anchor="${anchor}">${escapeHTML(p.time)}</text>
+          </g>`;
+      }).join('')}
+    `;
+
+    document.querySelectorAll('.svg-marker').forEach(el => {
+      el.addEventListener('click', () => selectStop(Number(el.dataset.stepIndex), false));
+      el.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectStop(Number(el.dataset.stepIndex), false);
+        }
+      });
+    });
+  }
+
+  function updateMapCallout(step, r){
+    if(step == null){
+      $('mapCallout').innerHTML = `<b>${r.icon} ${r.name}</b><div>${r.subtitle}</div><div class="callout-row"><span class="callout-pill">${r.difficulty}</span><span class="callout-pill">${r.walking}</span><span class="callout-pill">סיום משוער ${r.finish}</span></div>`;
+      return;
+    }
+    const s = r.steps[step];
+    $('mapCallout').innerHTML = `<b>תחנה ${step+1} · ${escapeHTML(s.name)}</b><div>${escapeHTML(s.desc)}</div><div class="callout-row"><span class="callout-pill">🕒 ${escapeHTML(s.time)}</span>${s.source?`<a class="callout-pill" href="${encodeURI(s.source)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none">מידע נוסף</a>`:''}</div>`;
+  }
+
+  function selectStop(stepIndex, scrollIntoView){
+    const r = routes[active];
+    activeStopIndex = stepIndex;
+    document.querySelectorAll('.svg-marker').forEach(el => el.classList.toggle('is-active', Number(el.dataset.stepIndex) === stepIndex));
+    document.querySelectorAll('.step').forEach(el => el.classList.toggle('is-active', Number(el.dataset.stepIndex) === stepIndex));
+    updateMapCallout(stepIndex, r);
+    if(scrollIntoView){
+      const target = document.querySelector(`.step[data-step-index="${stepIndex}"]`);
+      if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
     }
   }
-  function scheduleMapRefresh(key){
-    refreshTimeouts.forEach(clearTimeout); refreshTimeouts=[];
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{
-      refreshVisibleMap(key,true);
-      refreshTimeouts.push(setTimeout(()=>refreshVisibleMap(key),200));
-      refreshTimeouts.push(setTimeout(()=>refreshVisibleMap(key),650));
-    }));
+
+  function clearSelection(){
+    activeStopIndex = null;
+    document.querySelectorAll('.svg-marker').forEach(el => el.classList.remove('is-active'));
+    document.querySelectorAll('.step').forEach(el => el.classList.remove('is-active'));
+    updateMapCallout(null, routes[active]);
   }
-  function setRoute(key,fromHash){
-    if(!routes[key])return;
-    active=key;
-    if(!fromHash)history.replaceState(null,'','#'+key);
-    renderButtons(); renderDetails(routes[key]);
-    Object.keys(routes).forEach(k=>{ $('map-'+k).style.display=k===key?'block':'none'; });
-    $('mapStatus').classList.remove('show');
-    scheduleMapRefresh(key);
+
+  function setRoute(key, fromHash){
+    if(!routes[key]) return;
+    active = key;
+    if(!fromHash) history.replaceState(null,'','#'+key);
+    renderButtons();
+    renderDetails(routes[key]);
+    renderMap(routes[key]);
+    clearSelection();
+    selectStop(1, false);
   }
-  // Mobile browsers can change layout after navigation bars, font loading or rotation.
-  window.addEventListener('resize',()=>refreshVisibleMap(active));
-  window.addEventListener('orientationchange',()=>setTimeout(()=>refreshVisibleMap(active),300));
-  window.addEventListener('pageshow',()=>setTimeout(()=>refreshVisibleMap(active),200));
-  if(document.fonts && document.fonts.ready)document.fonts.ready.then(()=>refreshVisibleMap(active));
-  if(window.ResizeObserver){
-    const observer=new ResizeObserver(()=>refreshVisibleMap(active));
-    Object.keys(routes).forEach(k=>observer.observe($('map-'+k)));
-  }
-  $('refreshMap').addEventListener('click',()=>{
-    if(maps[active]){
-      // Recompute the viewport and request missing tile images.
-      maps[active].invalidateSize({pan:false,animate:false});
-      if(mapViews[active].bounds.length)maps[active].fitBounds(mapViews[active].bounds,{padding:[35,35],maxZoom:12,animate:false});
+
+  async function share(){
+    const link = location.href.split('#')[0] + '#' + active;
+    const text = 'מסלולי שבת ברמת הגולן · ' + routes[active].name + ' · 14.11.2026';
+    if(navigator.share && /^https?:$/.test(location.protocol)){
+      try{ await navigator.share({title:text,text:'הנה המסלול שחשבנו עליו לשבת:',url:link}); return; }
+      catch(e){ if(e.name==='AbortError') return; }
     }
-    scheduleMapRefresh(active);
-  });
-  async function share(){const link=location.href.split('#')[0]+'#'+active;const text='מסלולי שבת ברמת הגולן · '+routes[active].name+' · 14.11.2026';if(navigator.share&&/^https?:$/.test(location.protocol)){try{await navigator.share({title:text,text:'הנה המסלול שחשבנו עליו לשבת:',url:link});return;}catch(e){if(e.name==='AbortError')return;}}
-    try{await navigator.clipboard.writeText(link);alert('הקישור הועתק. אפשר להדביק אותו בוואטסאפ.');}catch(e){prompt('העתיקו את הקישור:',link);}
+    try{ await navigator.clipboard.writeText(link); alert('הקישור הועתק. אפשר להדביק אותו בוואטסאפ.'); }
+    catch(e){ prompt('העתיקו את הקישור:',link); }
   }
-  $('floatShare').addEventListener('click',share);
-  window.addEventListener('hashchange',()=>{const k=location.hash.slice(1);if(routes[k])setRoute(k,true)});
-  setRoute(active,true);
+
+  $('resetSelection').addEventListener('click', clearSelection);
+  $('focusFirstStop').addEventListener('click', () => selectStop(1, true));
+  $('floatShare').addEventListener('click', share);
+  window.addEventListener('hashchange', () => { const k = location.hash.slice(1); if(routes[k]) setRoute(k, true); });
+  setRoute(active, true);
 })();
 </script>
 </body>
