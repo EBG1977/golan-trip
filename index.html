@@ -109,9 +109,9 @@
       box-shadow:inset 0 1px 0 rgba(255,255,255,.6);
   }
   .schematic-topline{position:absolute;top:14px;right:16px;left:16px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none;z-index:2}
-  .schematic-badge{background:rgba(255,255,255,.72);backdrop-filter:blur(8px);border:1px solid rgba(42,97,73,.12);color:#2b5b49;padding:7px 11px;border-radius:999px;font-size:12px;font-weight:800;box-shadow:0 8px 25px rgba(23,53,39,.08)}
+  .schematic-badge{background:rgba(255,255,255,.93);backdrop-filter:blur(8px);border:1px solid rgba(42,97,73,.12);color:#2b5b49;padding:7px 11px;border-radius:999px;font-size:12px;font-weight:800;box-shadow:0 8px 25px rgba(23,53,39,.08)}
   .schematic-compass{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(42,97,73,.12);padding:7px 11px;border-radius:999px;font-size:12px;font-weight:800;color:#2b5b49;box-shadow:0 8px 25px rgba(23,53,39,.08)}
-  .schematic-map{display:block;width:100%;height:auto;aspect-ratio: 1000 / 640}
+  .schematic-map{display:block;width:100%;height:auto;aspect-ratio: 1000 / 640;direction:ltr;background:#e9f0e9}
   .map-callout{margin-top:12px;background:#fcfffc;border:1px solid #d7e6d9;border-radius:14px;padding:12px 14px;color:#355648;font-size:13px}
   .map-callout b{display:block;font-size:15px;color:#1a4c39;margin-bottom:4px}
   .map-callout .callout-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
@@ -128,8 +128,8 @@
   .svg-lake{fill:#cce2da;opacity:.7}
   .svg-texture{stroke:rgba(52,98,72,.18);stroke-width:5;stroke-linecap:round}
   .svg-contour{stroke:rgba(52,98,72,.12);stroke-width:2.4;fill:none}
-  .svg-route-line{fill:none;stroke:#2a795a;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0;filter:drop-shadow(0 4px 8px rgba(23,53,39,.14))}
-  .svg-route-shadow{fill:none;stroke:rgba(255,255,255,.5);stroke-width:14;stroke-linecap:round;stroke-linejoin:round}
+  .svg-route-line{fill:none;stroke:#276c54;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:9 12;filter:drop-shadow(0 4px 8px rgba(23,53,39,.14))}
+  .svg-route-shadow{fill:none;stroke:rgba(255,255,255,.85);stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:9 12}
   .svg-marker{cursor:pointer;outline:none}
   .svg-marker:focus-visible .marker-core{stroke:#d1883d;stroke-width:6}
   .marker-core{fill:#1e644b;stroke:#fff;stroke-width:4;transition:transform .18s, fill .18s, stroke-width .18s, filter .18s}
@@ -138,8 +138,8 @@
   .marker-ring{fill:none;stroke:rgba(30,100,75,.16);stroke-width:10}
   .svg-marker.is-active .marker-core{fill:#0f5038;filter:drop-shadow(0 6px 16px rgba(23,53,39,.22))}
   .svg-marker.is-active .marker-ring{stroke:rgba(30,100,75,.28)}
-  .marker-label{font-size:15px;font-weight:800;fill:#1c4636}
-  .marker-sub{font-size:12px;font-weight:700;fill:#678074}
+  .marker-label{font-size:15px;font-weight:900;fill:#163e2e;paint-order:stroke;stroke:white;stroke-width:5px;stroke-linejoin:round}
+  .marker-sub{font-size:12px;font-weight:900;fill:#24503c;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
   .mini-note{font-size:12px;font-weight:800;fill:#4f695d}
   .route-title-svg{font-size:25px;font-weight:900;fill:#244f3e}
   .route-sub-svg{font-size:14px;font-weight:700;fill:#5d776a}
@@ -198,15 +198,15 @@
 <section class="layout" aria-label="מפה ותחנות">
   <div class="paper mapbox">
     <div class="mapbar"><div><b id="mapTitle">מפת המסלול</b><small>לחצו על הסמנים כדי לראות פרטים על כל תחנה</small></div><div style="display:flex;gap:7px;flex-wrap:wrap"><button class="action" id="resetSelection" type="button">◌ הצג הכול</button><button class="action" id="focusFirstStop" type="button">◎ תחנה ראשונה</button></div></div>
-    <div class="map-legend"><span class="legend-chip"><span class="legend-route"></span> סדר המסלול</span><span class="legend-chip"><span class="legend-start"></span> יציאה מאורטל</span><span class="legend-chip"><span class="legend-dot"></span> תחנה לחיצה</span></div>
+    <div class="map-legend"><span class="legend-chip"><span class="legend-route"></span> סדר התחנות (לא כבישים)</span><span class="legend-chip"><span class="legend-start"></span> יציאה מאורטל</span><span class="legend-chip"><span class="legend-dot"></span> תחנה לחיצה</span></div>
     <div class="schematic-wrap">
       <div class="schematic-stage">
-        <div class="schematic-topline"><div class="schematic-badge" id="mapBadge">תרשים אינטראקטיבי עצמאי</div><div class="schematic-compass"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path class="north-arrow" d="M7 1l2.7 6.2H7.9V13H6.1V7.2H4.3L7 1z"/></svg> צפון</div></div>
+        <div class="schematic-topline"><div class="schematic-badge" id="mapBadge">מפה אמיתית · נקודות לחיצות</div><div class="schematic-compass"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path class="north-arrow" d="M7 1l2.7 6.2H7.9V13H6.1V7.2H4.3L7 1z"/></svg> צפון</div></div>
         <svg id="routeMap" class="schematic-map" viewBox="0 0 1000 640" role="img" aria-label="מפת המסלול האינטראקטיבית"></svg>
       </div>
-      <div class="map-callout" id="mapCallout"><b>לחצו על תחנה</b><div>המפה כאן היא המחשה אינטראקטיבית עצמאית של סדר התחנות והיחס ביניהן. לחיצה על כל תחנה תציג את פרטיה ותסמן אותה גם ברשימה.</div></div>
+      <div class="map-callout" id="mapCallout"><b>לחצו על תחנה</b><div>המפה מבוססת על נתוני OpenStreetMap ומוצגת כתמונה מקומית בתוך האתר. לחיצה על תחנה מציגה את פרטיה ומסמנת אותה ברשימה.</div></div>
     </div>
-    <div class="map-hint">זו מפה עצמאית סכמטית של המסלול — לא מפת ניווט מדויקת. היא נועדה להמחיש את סדר התחנות, הכיוון היחסי והמרחקים המשוערים ביניהן.</div>
+    <div class="map-hint">מפת בסיס אמיתית משנת 2018, שהועתקה ברישיון CC BY-SA 2.0 מאתר Wikimedia Commons. היא אינה מתעדכנת ואינה מיועדת לניווט. קו התחנות הוא המחשה בלבד ולא מסלול כבישים. קרדיט: <a href="https://commons.wikimedia.org/wiki/File:Golan_heights_OSM.jpg" target="_blank" rel="noopener noreferrer">יונה בנדלאק ויוצרי OpenStreetMap</a> · <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 2.0</a>. הוספנו סימונים והתאמות תצוגה.</div>
   </div>
   <div class="paper detailbox"><div class="details" id="details"></div></div>
 </section>
@@ -298,22 +298,31 @@
     $('showFirstOnMap').onclick = () => selectStop(1, true);
   }
 
+  // Wikimedia Commons Golan_heights_OSM.jpg is a georeferenced 1129x1600 OSM render.
+  // https://commons.wikimedia.org/wiki/File:Golan_heights_OSM.jpg
+  // Its image bounds are W35.42 E35.9633 N33.4833 S32.6378.
+  // We use the same transform for the background image and each marker.
+  const mapBounds={west:35.42,east:35.9633,north:33.4833,south:32.6378,width:1129,height:1600};
+  function imageXY(lat,lng){
+    return {
+      x:(lng-mapBounds.west)/(mapBounds.east-mapBounds.west)*mapBounds.width,
+      y:(mapBounds.north-lat)/(mapBounds.north-mapBounds.south)*mapBounds.height
+    };
+  }
   function projectRoute(r){
-    const pts = r.steps.map((s,idx)=>({...s, idx}));
-    const lats = pts.map(p=>p.lat), lngs = pts.map(p=>p.lng);
-    let minLat = Math.min(...lats), maxLat = Math.max(...lats), minLng = Math.min(...lngs), maxLng = Math.max(...lngs);
-    if (maxLat === minLat) { maxLat += .01; minLat -= .01; }
-    if (maxLng === minLng) { maxLng += .01; minLng -= .01; }
-    const latPad = (maxLat - minLat) * .22;
-    const lngPad = (maxLng - minLng) * .18;
-    minLat -= latPad; maxLat += latPad; minLng -= lngPad; maxLng += lngPad;
-    return pts.map((p,i) => {
-      const x = 110 + ((p.lng - minLng) / (maxLng - minLng)) * 760;
-      const y = 515 - ((p.lat - minLat) / (maxLat - minLat)) * 355;
-      const labelDx = (i % 2 === 0) ? 18 : -18;
-      const labelDy = (i === 0) ? -24 : (i % 2 === 0 ? -18 : 30);
-      return {...p, x, y, labelX: x + labelDx, labelY: y + labelDy};
+    const pts = r.steps.map((s,idx)=>({...s,idx,...imageXY(s.lat,s.lng)}));
+    const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);
+    const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+    // Include generous context around the route. Keep road map proportions unchanged.
+    const width=Math.max(maxX-minX,120),height=Math.max(maxY-minY,90);
+    const scale=Math.min(1.9,720/width,385/height);
+    const cx=(minX+maxX)/2, cy=(minY+maxY)/2;
+    const originX=500-cx*scale,originY=335-cy*scale;
+    const projected=pts.map((p,i)=>{
+      const x=originX+p.x*scale,y=originY+p.y*scale;
+      return {...p,x,y};
     });
+    return {points:projected, image:{x:originX,y:originY,width:mapBounds.width*scale,height:mapBounds.height*scale}};
   }
 
   function routePath(points){
@@ -322,58 +331,34 @@
   }
 
   function renderMap(r){
-    const points = projectRoute(r);
-    const path = routePath(points);
-    const labels = [
-      {x:110,y:122,w:180,h:68,text:'צפון הגולן'},
-      {x:708,y:470,w:160,h:60,text:'קצרין / מרכז הגולן'}
-    ];
-
-    $('routeMap').innerHTML = `
-      <defs>
-        <linearGradient id="bgWash" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#eef5ea"/>
-          <stop offset="100%" stop-color="#dce9d9"/>
-        </linearGradient>
-      </defs>
-      <rect x="0" y="0" width="1000" height="640" rx="0" fill="url(#bgWash)" />
-      <path class="svg-region" d="M90,110 C170,70 260,80 355,115 C470,158 560,145 675,108 C760,82 845,90 900,135 L900,525 C810,556 705,570 595,556 C460,539 342,514 228,542 C170,556 120,555 84,534 Z"/>
-      <path class="svg-lake" d="M688,188 C730,173 780,184 804,216 C820,239 815,271 786,283 C748,299 689,293 666,260 C649,236 659,200 688,188Z"/>
-      <path class="svg-lake" d="M178,398 C214,385 253,389 275,414 C297,439 286,470 249,480 C214,490 171,480 154,452 C141,430 149,407 178,398Z" opacity=".35"/>
-      <path class="svg-texture" d="M185 160 L240 132 M274 147 L338 112 M356 180 L418 148 M531 175 L602 140 M692 155 L750 132"/>
-      <path class="svg-texture" d="M158 302 L225 278 M262 336 L333 302 M414 323 L494 291 M581 347 L653 315 M723 318 L792 286"/>
-      <path class="svg-texture" d="M173 475 L256 443 M314 487 L391 451 M463 503 L549 472 M617 492 L705 460"/>
-      <path class="svg-contour" d="M130,205 C246,171 350,174 447,200 C541,225 673,224 842,179"/>
-      <path class="svg-contour" d="M142,267 C262,233 355,246 444,271 C549,302 668,300 852,246"/>
-      <path class="svg-contour" d="M126,424 C242,382 345,392 439,420 C550,453 678,453 848,398"/>
-      <text x="92" y="76" class="route-title-svg">מפה אינטראקטיבית — ${escapeHTML(r.name)}</text>
-      <text x="92" y="100" class="route-sub-svg">תרשים עצמאי של תחנות המסלול וסדר העצירות</text>
-      ${labels.map(l=>`<g opacity=".9"><rect x="${l.x}" y="${l.y}" width="${l.w}" height="${l.h}" rx="18" fill="rgba(255,255,255,.58)" stroke="rgba(120,146,132,.35)"/><text x="${l.x+l.w/2}" y="${l.y+40}" class="mini-note" text-anchor="middle">${l.text}</text></g>`).join('')}
+    const projection=projectRoute(r);
+    const points=projection.points;
+    const path=routePath(points);
+    const img=projection.image;
+    $('routeMap').innerHTML=`
+      <rect width="1000" height="640" fill="#dfece0" />
+      <image href="maps/golan-osm-2018.jpg" x="${img.x.toFixed(2)}" y="${img.y.toFixed(2)}" width="${img.width.toFixed(2)}" height="${img.height.toFixed(2)}" preserveAspectRatio="none" />
+      <rect width="1000" height="640" fill="rgba(255,255,255,.06)" />
       <path class="svg-route-shadow" d="${path}" />
       <path class="svg-route-line" d="${path}" />
-      ${points.map((p,i) => {
-        const isStart = i===0;
-        const dx = p.labelX < p.x ? -10 : 10;
-        const anchor = p.labelX < p.x ? 'end' : 'start';
-        return `
-          <g class="svg-marker ${isStart?'marker-start':''}" data-step-index="${i}" tabindex="0" role="button" aria-label="${escapeHTML(p.name)} בשעה ${escapeHTML(p.time)}">
-            <circle class="marker-ring" cx="${p.x}" cy="${p.y}" r="23"></circle>
-            <circle class="marker-core" cx="${p.x}" cy="${p.y}" r="18"></circle>
-            <text class="marker-number" x="${p.x}" y="${p.y+1}">${i+1}</text>
-            <line x1="${p.x}" y1="${p.y}" x2="${p.labelX}" y2="${p.labelY-6}" stroke="rgba(44,89,66,.28)" stroke-width="2" />
-            <text class="marker-label" x="${p.labelX+dx}" y="${p.labelY}" text-anchor="${anchor}">${escapeHTML(p.name)}</text>
-            <text class="marker-sub" x="${p.labelX+dx}" y="${p.labelY+18}" text-anchor="${anchor}">${escapeHTML(p.time)}</text>
-          </g>`;
+      ${points.map((p,i)=>{
+        const label = p.name.length>23 ? p.name.slice(0,22)+'…' : p.name;
+        const anchor = p.x>640?'end':'start';
+        const tx=p.x+(anchor==='end'?-26:26);
+        const labelY=p.y+(i%2===0?-20:30);
+        return `<g class="svg-marker ${i===0?'marker-start':''}" data-step-index="${i}" tabindex="0" role="button" aria-label="${escapeHTML(p.name)} בשעה ${escapeHTML(p.time)}">
+          <circle class="marker-ring" cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="24"></circle>
+          <circle class="marker-core" cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="18"></circle>
+          <text class="marker-number" x="${p.x.toFixed(2)}" y="${(p.y+1).toFixed(2)}">${i+1}</text>
+          <text class="marker-label" x="${tx.toFixed(2)}" y="${labelY.toFixed(2)}" text-anchor="${anchor}">${escapeHTML(label)}</text>
+          <text class="marker-sub" x="${tx.toFixed(2)}" y="${(labelY+18).toFixed(2)}" text-anchor="${anchor}">${escapeHTML(p.time)}</text>
+        </g>`;
       }).join('')}
     `;
-
-    document.querySelectorAll('.svg-marker').forEach(el => {
-      el.addEventListener('click', () => selectStop(Number(el.dataset.stepIndex), false));
-      el.addEventListener('keydown', e => {
-        if(e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          selectStop(Number(el.dataset.stepIndex), false);
-        }
+    document.querySelectorAll('.svg-marker').forEach(el=>{
+      el.addEventListener('click',()=>selectStop(Number(el.dataset.stepIndex),false));
+      el.addEventListener('keydown',e=>{
+        if(e.key==='Enter'||e.key===' '){ e.preventDefault();selectStop(Number(el.dataset.stepIndex),false); }
       });
     });
   }
