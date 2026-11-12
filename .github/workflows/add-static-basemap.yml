@@ -1,0 +1,33 @@
+name: Add freely licensed static Golan basemap
+on:
+  push:
+    paths:
+      - '.github/workflows/add-static-basemap.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  add-basemap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the site
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download CC BY-SA 2.0 OpenStreetMap basemap from Wikimedia Commons
+        run: |
+          set -euo pipefail
+          mkdir -p maps
+          curl --fail --location --retry 3 --retry-delay 2 --user-agent 'GolanFamilyTripStaticBasemap/1.0 (https://github.com/EBG1977/golan-trip)' 'https://upload.wikimedia.org/wikipedia/commons/0/04/Golan_heights_OSM.jpg' -o maps/golan-osm-2018.jpg
+          file maps/golan-osm-2018.jpg
+          test $(wc -c < maps/golan-osm-2018.jpg) -gt 200000
+          grep -q 'JPEG image data' <(file maps/golan-osm-2018.jpg)
+      - name: Commit basemap to GitHub Pages
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add maps/golan-osm-2018.jpg
+          git diff --cached --quiet && exit 0
+          git commit -m 'Add licensed OpenStreetMap Golan basemap from Wikimedia Commons'
+          git push
